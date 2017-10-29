@@ -1,23 +1,22 @@
 console.log('Starting app')
 
 const fs = require('fs')
-const os = require('os')
 const notes = require('./notes')
 const _ = require('lodash')
 
-let res = notes.addNote()
+let command = process.argv[2]
 
-// console.log(_.isString(true))
-// console.log(_.isString('Koral'))
+if (command === 'add') {
+  console.log('Adding new note')
+} else if (command === 'list') {
+  console.log('Listing all notes')
+} else if (command === 'read') {
+  console.log('Reading note')
+} else if (command === 'remove') {
+  console.log('Removing note')
+}
+else {
+  console.log('Command not recognized')
+}
 
-let filteredArray = _.uniq(['Koral', 'Koral', 28])
-console.log(filteredArray)
-
-// let user = os.userInfo()
-
-
-// fs.appendFile('greetings.txt', `Hello ${user.username}! You are ${notes.age}`, function (err) {
-//   if (err) {
-//       console.log('File could not be written to.' + err)
-//     }
-// })
+console.log(process.argv)
