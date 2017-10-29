@@ -1,0 +1,14 @@
+{
+  "name": "brendankoral",
+  "version": "1.0.0",
+  "description": "A note project for this node.js course",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Brendan Koral",
+  "license": "ISC",
+  "dependencies": {
+    "lodash": "^4.17.4"
+  }
+}
