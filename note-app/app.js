@@ -3,9 +3,36 @@ const notes = require('./notes')
 const _ = require('lodash')
 const yargs = require('yargs')
 
-const argv = yargs.argv
+const options = { 
+  title: {
+  describe: 'Title of note',
+  demand: true,
+  alias: 't'
+  },
+  body: {
+    describe: 'Text for body',
+    demand: true,
+    alias: 'b'
+  }
+}
 
-let command = process.argv[2]
+const argv = yargs.command('add', 'Add a new note', {
+  title: options.title,
+  body: options.body
+})
+.command('list', 'List all notes')
+.command('read', 'Read individual note', {
+  title: options.title,
+  body: options.body
+})
+.command('remove', 'Remove individual note', {
+  title: options.title,
+  body: options.body
+})
+.help()
+.argv
+
+let command = argv._[0]
 
 // console.log('Command', command)
 // console.log(argv)
@@ -14,7 +41,7 @@ if (command === 'add') {
   let note = notes.addNote(argv.title, argv.body)
   if (note) {
     console.log('Note created successfully')
-    logNote(note)
+    notes.logNote(note)
   } else {
     console.log('Note creation failed.')
   }
@@ -32,7 +59,7 @@ if (command === 'add') {
 
   if (note) {
     console.log('Note found.')
-    logNote(note)
+    notes.logNote(note)
 
 
   } else {
