@@ -31,7 +31,7 @@ let addNote = (title, body) => {
         body
     }
 
-    let duplicateNotes = notes.filter((note) => note.title === title)
+    let duplicateNotes = notes.filter( note => note.title === title)
 
     if (duplicateNotes.length === 0) {
             
@@ -53,7 +53,14 @@ let getNote = (title) => {
 }
 
 let removeNote = (title) => {
-    console.log('Removing note: ', title)
+
+    let notes = fetchNotes()
+
+    let filteredNotes = notes.filter(note => note.title !== title)
+
+    saveNotes(filteredNotes)
+
+    return notes.length !== filteredNotes.length
 }
 
 module.exports = {
