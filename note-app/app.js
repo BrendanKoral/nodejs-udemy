@@ -1,5 +1,3 @@
-console.log('Starting app')
-
 const fs = require('fs')
 const notes = require('./notes')
 const _ = require('lodash')
@@ -21,7 +19,13 @@ if (command === 'add') {
     console.log('Note creation failed.')
   }
 } else if (command === 'list') {
-  notes.getAll()
+  
+  let allNotes = notes.getAll()
+
+  console.log(`Printing ${allNotes.length} note(s).`)
+
+  allNotes.forEach(note => notes.logNote(note) );
+
 } else if (command === 'read') {
   
   let note = notes.getNote(argv.title)
