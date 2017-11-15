@@ -1,27 +1,32 @@
-const yargs = require('yargs')
+const yargs = require('yargs');
 
-const geocode = require('./geocode/geocode')
-const weather = require ('./weather/weather')
+const geocode = require('./geocode/geocode');
+const weather = require('./weather/weather');
 
 const argv = yargs
-.options({
+  .options({
     a: {
-        demand: true,
-        alias: 'address',
-        describe: 'Address for which to fetch weather',
-        string: true
+      demand: true,
+      alias: 'address',
+      describe: 'Address to fetch weather for',
+      string: true
     }
-})
-.help()
-.alias('help', 'h')
-.argv
+  })
+  .help()
+  .alias('help', 'h')
+  .argv;
 
-// geocode.geocodeAddress(argv.address, (errorMessage, result) => {
-//     if (errorMessage) {
-//         console.log(errorMessage)
-//     } else {
-//         console.log(JSON.stringify(result, undefined, 2))
-//     }
-// })
-
-weather.getWeather()
+geocode.geocodeAddress(argv.address, (errorMessage, results) => {
+  if (errorMessage) {
+    console.log(errorMessage);
+  } else {
+    console.log(results.address);
+    weather.getWeather(results.latitude, results.longitude, (errorMessage, weatherResults) => {
+      if (errorMessage) {
+        console.log(errorMessage);
+      } else {
+        console.log(`It's currently ${weatherResults.temperature}. It feels like ${weatherResults.apparentTemperature}.`);
+      }
+    });
+  }
+});
