@@ -11,6 +11,13 @@ it('should add two numbers together', () => {
 
 })
 
+it('should async add two numbers', (done) => {
+    utils.asyncAdd(4,3,(sum) => {
+        expect(sum).toBe(7).toBeA('number')
+        done()
+    })
+})
+
 it('should square a number', () => {
     let result = utils.square(5)
 
