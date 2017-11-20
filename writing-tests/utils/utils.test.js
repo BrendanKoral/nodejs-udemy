@@ -1,3 +1,5 @@
+//Add watcher for tests: nodemon --exec "npm test"
+
 const utils = require('./utils')
 
 it('should add two numbers together', () => {
