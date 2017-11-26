@@ -18,6 +18,13 @@ it('should async add two numbers', (done) => {
     })
 })
 
+it('should async square a number', (done) => {
+    utils.asyncSquare(5, (res) => {
+        expect(res).toBe(25).toBeA('number')
+    })
+    done()
+})
+
 it('should square a number', () => {
     let result = utils.square(5)
 
