@@ -10,25 +10,20 @@ mongoose.connect('mongodb://localhost:27017');
 
 let Todo = mongoose.model('Todo', {
     text: {
-        type: String
+        type: String,
+        required: true,
+        minlength: 1
     },
     completed: {
-        type: Boolean
+        type: Boolean,
+        default: false
     },
     completedAt: {
-        type: Number
+        type: Number,
+        default: null
     }
 });
 
-let newTodo = new Todo({
-    text: 'Pick up pizza'
-})
-
-newTodo.save().then((doc) => {
-    console.log(`Successfully saved todo! ${doc}`);
-}, (err) => {
-    console.error('Unable to save todo');
-})
 
 let otherTodo = new Todo({
     text: 'Walk the dog',
@@ -40,4 +35,23 @@ otherTodo.save().then((doc) => {
     console.log(`Successfully saved todo! ${doc}`);
 }, (err) => {
     console.error('Unable to save todo');
+})
+
+let User = mongoose.model('User', {
+  email : {
+      type: String,
+      required: true,
+      trim: true,
+      minlength: 1
+  }  
+})
+
+let user = new User({
+    email: 'bkoral@dealerinspire.com'
+})
+
+user.save().then((res) => {
+    console.log(`User saved successfully! ${res}`)
+}, (err) => {
+    console.error(`Some error occurred. ${err}`)
 })
