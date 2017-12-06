@@ -13,6 +13,7 @@ const {User} = require('./models/user');
 */
 
 let app = express();
+const port = process.env.PORT || 3000
 
 app.use(bodyParser.json());
 
@@ -60,8 +61,8 @@ app.get('/todos/:id', (req, res) => {
     //On No Todo - send 404 with empty body
 })
 
-app.listen(3000, () => {
-    console.log(`Todo API started on port 3000`);
+app.listen(port, () => {
+    console.log(`Todo API started on port ${port}`);
 });
 
 module.exports = {
