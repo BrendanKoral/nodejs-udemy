@@ -8,9 +8,6 @@ const {Todo} = require('./../models/todo')
 const todos = [{
     _id: new ObjectID(),
     text: 'First test todo'
-    }, {
-    _id: new ObjectID(),
-    text: 'Second test todo'
     }]
 
 beforeEach((done) => {
@@ -55,7 +52,7 @@ describe('POST / todos', () => {
             }
 
             Todo.find().then((todos) => {
-                expect(todos.length).toBe(2);
+                expect(todos.length).toBe(1);
                 done();
             }).catch((e) => done(e));
         });
@@ -67,7 +64,7 @@ describe('POST / todos', () => {
             .get('/todos')
             .expect(200)
             .expect((res) => {
-                expect(res.body.todos.length).toBe(2);
+                expect(res.body.todos.length).toBe(1);
             })
             .end(done);
         })
@@ -94,6 +91,44 @@ describe('POST / todos', () => {
         })
 
         it('should return an error for non-object IDs', (done) => {
+            request(app)
+            .get(`/todos/123`)
+            .expect(404)
+            .end(done)
+        })
+    })
+
+    describe('Delete /todos/:id', () => {
+        it('should remove a todo', (done) => {
+            let hexId = todos[0]._id.toHexString()
+            
+            request(app)
+            .delete(`/todos/${hexId}`)
+            .expect(200)
+            .expect((res) => {
+                expect(res.body.todo._id).toBe(hexId)
+            })
+            .end((err, res) => {
+                if (err) {
+                    return done(err)
+                }
+
+                Todo.findById(hexId).then((todo) => {
+                    expect(todo).toNotExist()
+                    done()
+                }).catch((err) => done(err))
+            })
+
+        })
+
+        it('should return 404 if todo not found', (done) => {
+            request(app)
+            .get(`/todos/123`)
+            .expect(404)
+            .end(done)
+        })
+
+        it('should return 404 if object id is invalid', (done) => {
             request(app)
             .get(`/todos/123`)
             .expect(404)
