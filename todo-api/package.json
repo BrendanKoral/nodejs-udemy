@@ -19,7 +19,8 @@
     "lodash": "^4.17.4",
     "mongodb": "^2.2.5",
     "mongoose": "^4.13.6",
-    "nodemon": "^1.12.5"
+    "nodemon": "^1.12.5",
+    "validator": "^5.7.0"
   },
   "devDependencies": {
     "expect": "^1.20.2",
