@@ -49,8 +49,31 @@ UserSchema.methods.generateAuthToken = function () {
 
     user.tokens.push({access, token})
 
-    user.save().then(() => {
+    return user.save().then(() => {
         return token
+    })
+}
+
+UserSchema.statics.findByToken = function (token) {
+    //Models get called with the User binding
+    let User = this
+
+    let decoded
+
+    try {
+
+        decoded = jwt.verify(token, 'abc123')
+
+    } catch (e) {
+
+        return Promise.reject('Token could not be verified')
+
+    }
+
+    return User.findOne({
+        '_id': decoded._id,
+        'tokens.token': token,
+        'tokens.access': 'auth'
     })
 }
 
