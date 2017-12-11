@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const { mongoose } = require('./db/mongoose');
 const {Todo} = require('./models/todo');
 const {User} = require('./models/user');
+const {authenticate} = require('./middleware/authenticate')
 
 /*
     Have to CD on Windows to C:\Program Files\MongoDB\Server\3.4\bin
@@ -117,16 +118,10 @@ app.patch('/todos/:id', (req, res) => {
     })
 })
 
-app.get('/users/me', (req, res) => {
-    let token = req.header('x-auth')
 
-    User.findByToken(token).then((user) => {
-        if (!user) {
-            return Promise.reject()
-        }
-
-        res.send(user)
-    }).catch((e) => res.status(401).send())
+app.get('/users/me', authenticate, (req, res) => {
+    console.log(req)
+    res.send(req)
 })
 
 app.listen(port, () => {
