@@ -120,8 +120,8 @@ app.patch('/todos/:id', (req, res) => {
 
 
 app.get('/users/me', authenticate, (req, res) => {
-    console.log(req)
-    res.send(req)
+    console.log(req.user)
+    res.send(req.user)
 })
 
 app.listen(port, () => {

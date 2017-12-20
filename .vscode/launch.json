@@ -9,6 +9,12 @@
             "request": "launch",
             "name": "Launch Program",
             "program": "${workspaceFolder}/writing-tests\\express-testing\\server.test.js"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "API",
+            "program": "${workspaceFolder}/todo-api/server/server.js"
         }
     ]
 }
