@@ -10,7 +10,7 @@ const {User} = require('./models/user');
 const {authenticate} = require('./middleware/authenticate')
 
 /*
-    Have to CD on Windows to C:\Program Files\MongoDB\Server\3.4\bin
+    Have to CD on Windows to C:\"Program Files"\MongoDB\Server\3.4\bin
 
     ./mongod.exe --dbpath /Users/Koral/mongo-data
 */
